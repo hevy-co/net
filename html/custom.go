@@ -39,6 +39,8 @@ func parseWithIndexes(p *parser) (map[*Node][2]int, error) {
 		// If the node was already found, it means that we're looking at the closing tag.
 		// If so, the start position should come from the opening tag.
 		if _, ok := tokenMap[t]; ok {
+			fmt.Printf("START: %d", start)
+			fmt.Println(*t)
 			start = tokenMap[t][0]
 		}
 

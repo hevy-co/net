@@ -35,7 +35,14 @@ func parseWithIndexes(p *parser) (map[*Node][2]int, error) {
 		prevEndBuf = p.tokenizer.data.end
 		// Read and parse the next token.
 		p.tokenizer.Next()
-		tokenIndex = [2]int{p.tokenizer.data.start + globalBufDif, p.tokenizer.data.end + globalBufDif}
+		start := p.tokenizer.data.start + globalBufDif
+		// If the node was already found, it means that we're looking at the closing tag.
+		// If so, the start position should come from the opening tag.
+		if _, ok := tokenMap[t]; ok {
+			start = tokenMap[t][0]
+		}
+
+		tokenIndex = [2]int{start, p.tokenizer.data.end + globalBufDif}
 
 		p.tok = p.tokenizer.Token()
 		if p.tok.Type == ErrorToken {

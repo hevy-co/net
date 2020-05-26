@@ -40,7 +40,7 @@ func parseWithIndexes(p *parser) (map[*Node][2]int, error) {
 		// If so, the start position should come from the opening tag.
 		if _, ok := tokenMap[t]; ok {
 			fmt.Printf("START: %d", start)
-			fmt.Println(*t)
+			fmt.Println(t)
 			start = tokenMap[t][0]
 		}
 
